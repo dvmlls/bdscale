@@ -1,4 +1,3 @@
-library(dplyr)
 library(magrittr)
 library(ggplot2)
 library(scale_bd)

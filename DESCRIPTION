@@ -1,0 +1,10 @@
+Package: scale.bd
+Version: 1.0
+License: MIT
+Date: 2014-10-08
+Title: Remove weekends and holidays from ggplot2 axes
+Author: Dave Mills <dvmlls@github.com>
+Maintainer: Dave Mills <dvmlls@github.com>
+Depends: R (>= 3.0), ggplot2, scales
+Suggests: magrittr
+URL: http://github.com/dvmlls/scale_bd

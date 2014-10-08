@@ -49,8 +49,8 @@ bd_breaks <- function(business.dates, n = 5, ...) {
   
   function(dates) {
 #    cat (sprintf("[BREAKS] In: %s \n", do.call(paste, as.list(dates))), file=stderr())
-    ts <- dates %>% bd2t(business.dates)
-    breaks <- ts %>% pretty(n, ...) %>% t2bd(business.dates)
+    ts <- bd2t(dates, business.dates)
+    breaks <- t2bd(pretty(ts, n, ...), business.dates)
     names(breaks) <- attr(breaks, "labels")
 #    cat (sprintf("[BREAKS] Out: %s \n", do.call(paste, as.list(breaks))), file=stderr())
     breaks
