@@ -1,9 +1,9 @@
-scale_bd
+bdscale
 ========
 
-Remove weekends and holidays from ggplot2 axes.
+Remove weekends and holidays from `ggplot2` axes.
 
-## Get some dates
+### Get some dates
 
 We need to know which days are valid trading days. Can ask Yahoo Finance for past NYSE trading days:
 
@@ -11,7 +11,7 @@ We need to know which days are valid trading days. Can ask Yahoo Finance for pas
 nyse <- bdscale::get_nyse()
 ```
 
-## Pair with a random walk
+### Pair with a random walk
 
 Now, create some fake prices and data-frame them:
 
@@ -20,7 +20,7 @@ set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 ```
 
-## Plot on standard calendar-day axis:
+### Plot on standard calendar-day axis:
 
 Plotting this like so:
 
@@ -38,7 +38,7 @@ Yields the following graph. Note the extended portions over weekends:
 
 <img src='man/figures/calendar.PNG'>
 
-## Plot on a business-day axis:
+### Plot on a business-day axis:
 
 If you plot against `scale_x_bd` like so:
 
