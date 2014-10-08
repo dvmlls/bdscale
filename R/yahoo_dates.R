@@ -2,7 +2,7 @@ yahoo <- function(args) {
   base <- 'http://real-chart.finance.yahoo.com/table.csv'
   csv <- read.csv(url(paste(base, args, sep='?')))
   
-  as.Date(csv$Date)  
+  sort(as.Date(csv$Date))
 }
 
 #' Get past trading days for NYSE using close prices of SPX

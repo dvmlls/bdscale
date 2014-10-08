@@ -30,9 +30,9 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks=bd_breaks(business.date
   continuous_scale(aesthetics, 'date', identity, breaks=breaks, minor_breaks=minor_breaks, guide="none", expand=expand, trans=bd_trans(business.dates, breaks), ...)
 }
 
-#' Position scale for a ggplot
+#' Weekend and holiday ignoring position scale for a ggplot
 #' 
-#' @param business.dates a vector of Date objects
+#' @param business.dates a vector of Date objects sorted ascending
 #' @param expand see \code{\link{scale_x_date}}
 #' @param breaks see \code{\link{scale_x_date}}
 #' @param minor_breaks see \code{\link{scale_x_date}}
@@ -57,7 +57,7 @@ bd_breaks <- function(business.dates, n = 5, ...) {
   
   function(dates) {
     ts <- bd2t(dates, business.dates)
-    breaks <- t2bd(pretty(ts, n, ...), business.dates)
+    breaks <- t2bd(pretty(sort(ts), n, ...), business.dates)
     names(breaks) <- attr(breaks, "labels")
     breaks
   }
