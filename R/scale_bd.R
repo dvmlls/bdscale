@@ -1,14 +1,10 @@
 bd2t <- function(dates, business.dates) {
-#  cat (sprintf("[D->N] In: %s \n", do.call(paste, as.list(dates))), file=stderr())
   result=match(dates, business.dates) - 1
-#  cat (sprintf("[D->N] Out: %s \n", do.call(paste, as.list(result))), file=stderr())
   structure(as.numeric(result), names=names(dates))
 }
 
 t2bd <- function(ts, business.dates) {
-#  cat (sprintf("[N->D] In: %s \n", do.call(paste, as.list(ts))), file=stderr())
   result=business.dates[pmin(pmax(round(ts, 0), 0) + 1, length(business.dates))]
-#  cat (sprintf("[N->D] Out: %s \n", do.call(paste, as.list(result))), file=stderr())
   structure(result, class='Date')  
 }
 
@@ -60,11 +56,9 @@ scale_x_bd <- function(..., expand=waiver(), breaks=bd_breaks(business.dates), m
 bd_breaks <- function(business.dates, n = 5, ...) {
   
   function(dates) {
-#    cat (sprintf("[BREAKS] In: %s \n", do.call(paste, as.list(dates))), file=stderr())
     ts <- bd2t(dates, business.dates)
     breaks <- t2bd(pretty(ts, n, ...), business.dates)
     names(breaks) <- attr(breaks, "labels")
-#    cat (sprintf("[BREAKS] Out: %s \n", do.call(paste, as.list(breaks))), file=stderr())
     breaks
   }
 }

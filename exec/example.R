@@ -1,17 +1,22 @@
-library(magrittr)
-library(dplyr)
-library(ggplot2)
+require(dplyr, quietly=T, warn.conflicts=F)
+require(ggplot2, quietly=T)
+require(scales)
 
-spx <- paste('http://real-chart.finance.yahoo.com/table.csv',
-             's=%5EGSPC&d=9&e=8&f=2014&g=d&a=0&b=3&c=1950&ignore=.csv',
-             sep='?')
-nyse <- spx %>% url %>% read.csv %>% extract2('Date') %>% as.Date
+nyse <- get_nyse()
 
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 
-df %>% filter(date > as.Date('2014-08-01')) %>% 
-  ggplot(aes(x=date, y=price)) + geom_step()
+getwd()
 
-df %>% filter(date > as.Date('2014-08-01')) %>% 
-  ggplot(aes(x=date, y=price)) + geom_step() + scale_x_bd(business.dates=nyse)
+df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
+  ggplot(aes(x=date, y=price)) + geom_step() + 
+  ggtitle('calendar dates')
+
+# ggsave(file='man/figures/calendar.PNG')
+
+df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
+  ggplot(aes(x=date, y=price)) + geom_step() + scale_x_bd(business.dates=nyse) +
+  ggtitle('business dates')
+
+# ggsave(file='man/figures/business.PNG')
