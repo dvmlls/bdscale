@@ -13,7 +13,7 @@ nyse <- bdscale::get_nyse()
 
 ### Plot on standard calendar-day axis:
 
-Create some fake prices and put them into a `data.frame` alongside the dates, and plot:
+Create some fake prices, put them into a `data.frame` alongside the dates, and plot:
 
 ```
 set.seed(12345)
@@ -28,7 +28,7 @@ df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>%
 
 ```
 
-This yields a graph with a large gap at the beginning of September because Labor Day was on the 1st.
+This yields a graph with a large gap at the beginning of September, because Labor Day was on the 1st:
 
 <img src='man/figures/calendar.PNG'>
 
