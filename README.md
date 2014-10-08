@@ -11,20 +11,14 @@ We need to know which days are valid trading days. Can ask Yahoo Finance for pas
 nyse <- bdscale::get_nyse()
 ```
 
-### Pair with a random walk
+### Plot on standard calendar-day axis:
 
-Now, create some fake prices and data-frame them:
+Create some fake prices and put them into a `data.frame` alongside the dates, and plot:
 
 ```
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
-```
 
-### Plot on standard calendar-day axis:
-
-Plotting this like so:
-
-```
 library(dplyr)
 library(ggplot2)
 
@@ -34,13 +28,13 @@ df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>%
 
 ```
 
-Yields the following graph. Note the extended portions over weekends:
+This yields a graph with a large gap at the beginning of September because Labor Day was on the 1st.
 
 <img src='man/figures/calendar.PNG'>
 
 ### Plot on a business-day axis:
 
-If you plot against `scale_x_bd` like so:
+If instead you plot against `scale_x_bd`:
 
 ```
 df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
