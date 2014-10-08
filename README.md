@@ -5,7 +5,7 @@ Remove weekends and holidays from `ggplot2` axes.
 
 ### Get some dates
 
-We need to know which days are valid trading days. Can ask Yahoo Finance for past NYSE trading days:
+Need to know which are valid trading dates. Can ask Yahoo Finance for past NYSE dates:
 
 ```
 nyse <- bdscale::get_nyse()
@@ -28,13 +28,13 @@ df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>%
 
 ```
 
-This yields a graph with a large gap at the beginning of September, because Labor Day was on the 1st:
+Yields a graph with a large gap at the beginning of September, because Labor Day was on the 1st:
 
 <img src='man/figures/calendar.PNG'>
 
 ### Plot on a business-day axis:
 
-If instead you plot against `scale_x_bd`:
+Plot against `scale_x_bd` instead:
 
 ```
 df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
@@ -42,6 +42,6 @@ df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>%
   ggtitle('business dates')
 ```
 
-You'll remove weekends and holidays from the graph:
+Removes weekends and holidays from the graph:
 
 <img src='man/figures/business.PNG'>
