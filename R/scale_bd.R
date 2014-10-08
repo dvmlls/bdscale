@@ -34,6 +34,18 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks=bd_breaks(business.date
   continuous_scale(aesthetics, 'date', identity, breaks=breaks, minor_breaks=minor_breaks, guide="none", expand=expand, trans=bd_trans(business.dates, breaks), ...)
 }
 
+#' Position scale for a ggplot
+#' 
+#' @param business.dates a vector of Date objects
+#' @param expand see \code{\link{scale_x_date}}
+#' @param breaks see \code{\link{scale_x_date}}
+#' @param minor_breaks see \code{\link{scale_x_date}}
+#' @param ... see \code{\link{scale_x_date}}
+#' 
+#' @export
+#' @import ggplot2 scales
+#' @example exec/example.R
+#' 
 scale_x_bd <- function(..., expand=waiver(), breaks=bd_breaks(business.dates), minor_breaks=waiver(), business.dates) {
   scale_bd(c("x", "xmin", "xmax", "xend"), expand=expand, breaks=breaks, minor_breaks=minor_breaks, business.dates=business.dates, ...)
 }

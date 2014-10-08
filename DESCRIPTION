@@ -1,10 +1,17 @@
-Package: scale.bd
+Package: bdscale
 Version: 1.0
-License: MIT
 Date: 2014-10-08
 Title: Remove weekends and holidays from ggplot2 axes
 Author: Dave Mills <dvmlls@github.com>
 Maintainer: Dave Mills <dvmlls@github.com>
-Depends: R (>= 3.0), ggplot2, scales
-Suggests: magrittr
-URL: http://github.com/dvmlls/scale_bd
+Depends:
+    R (>= 3.0)
+Imports:
+    ggplot2,
+    scales
+Suggests:
+    magrittr,
+    dplyr
+URL: http://github.com/dvmlls/bdscale
+Description: Provides a continuous date scale, omitting weekends and holidays
+License: MIT + file LICENSE
