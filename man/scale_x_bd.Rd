@@ -21,8 +21,9 @@ scale_x_bd(..., expand = waiver(), breaks = bd_breaks(business.dates),
 Position scale for a ggplot
 }
 \examples{
-library(dplyr, quietly=T)
-library(ggplot2)
+require(dplyr, quietly=TRUE, warn.conflicts=FALSE)
+require(ggplot2, quietly=TRUE)
+require(scales)
 
 nyse <- get_nyse()
 
@@ -31,14 +32,16 @@ df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 
 getwd()
 
-calendar <- df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
-  ggplot(aes(x=date, y=price)) + geom_step()
+df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
+  ggplot(aes(x=date, y=price)) + geom_step() + 
+  ggtitle('calendar dates')
 
-ggsave(calendar, file='man/figures/calendar.PNG')
+# ggsave(file='man/figures/calendar.PNG')
 
-business <- df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
-  ggplot(aes(x=date, y=price)) + geom_step() + scale_x_bd(business.dates=nyse)
+df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
+  ggplot(aes(x=date, y=price)) + geom_step() + scale_x_bd(business.dates=nyse) +
+  ggtitle('business dates')
 
-ggsave(business, file='man/figures/business.PNG')
+# ggsave(file='man/figures/business.PNG')
 }
 
