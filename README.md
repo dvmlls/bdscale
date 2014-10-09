@@ -22,9 +22,11 @@ df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 library(dplyr)
 library(ggplot2)
 
-df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
+plot <- df %>% filter(as.Date('2014-08-01') <= date & date <= as.Date('2014-10-08')) %>% 
   ggplot(aes(x=date, y=price)) + geom_step() + 
-  ggtitle('calendar dates')
+  theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+  
+plot + ggtitle('calendar dates')
 
 ```
 
@@ -37,11 +39,24 @@ Yields a graph with a large gap at the beginning of September, because Labor Day
 Plot against `scale_x_bd` instead:
 
 ```
-df %>% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) %>% 
-  ggplot(aes(x=date, y=price)) + geom_step() + bdscale::scale_x_bd(business.dates=nyse) +
-  ggtitle('business dates')
+plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) + 
+  ggtitle('business dates, month breaks')
 ```
 
 Removes weekends and holidays from the graph:
 
-<img src='man/figures/business.PNG'>
+<img src='man/figures/business.month.PNG'>
+
+Tell it to use more breaks because we're making a wide chart:
+
+```
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + 
+  ggtitle('business dates, week breaks')
+```
+
+Given the max, it determines it can put major breaks on the first trading day of the week, and minor breaks every day:
+
+```
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + 
+  ggtitle('business dates, week breaks')
+```
