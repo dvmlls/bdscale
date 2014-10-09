@@ -55,7 +55,4 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) +
 
 Given the max, it determines it can put major breaks on the first trading day of the week, and minor breaks every day:
 
-```
-plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + 
-  ggtitle('business dates, week breaks')
-```
+<img src='man/figures/business.week.PNG'>
