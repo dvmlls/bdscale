@@ -19,6 +19,7 @@ plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) + ggtitle('
 
 # ggsave(file='man/figures/business.month.PNG', width=6, height=2)
 
-plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + ggtitle('business dates, week breaks')
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('%b %d')) + 
+  ggtitle('business dates, week breaks')
 
 # ggsave(file='man/figures/business.week.PNG', width=6, height=2)

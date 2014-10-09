@@ -49,10 +49,10 @@ Removes weekends and holidays from the graph:
 Because we're making a wide chart, we can tell it to use more breaks:
 
 ```
-plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + 
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('%b %d')) + 
   ggtitle('business dates, week breaks')
 ```
 
-Given the max, it determines it can put major breaks on the first trading day of the week, and minor breaks every day:
+Given that max, it determines it can put major breaks on the first trading day of the week, and minor breaks every day:
 
 <img src='man/figures/business.week.PNG'>
