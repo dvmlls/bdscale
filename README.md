@@ -46,7 +46,9 @@ Removes weekends and holidays from the graph:
 
 <img src='man/figures/business.month.PNG'>
 
-Because we're making a wide chart, we can tell it to use more breaks:
+The major breaks are pretty far apart. It put them on the first trading day of each month. 
+
+It's a wide chart, tell it to use more breaks:
 
 ```
 plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('%b %d')) + 
