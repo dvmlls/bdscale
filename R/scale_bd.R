@@ -75,6 +75,8 @@ bd_breaks <- function(business.dates, n.max=5) {
   breaks.months <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
   breaks.quarters <- firstInGroup(business.dates, quarter_format)
   breaks.years <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
+  breaks.years.5 <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/5))
+  breaks.decades <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/10))
   
   function(n.max=5) {
     function(range.date) {      
@@ -84,21 +86,31 @@ bd_breaks <- function(business.dates, n.max=5) {
       
       if(length(all.date) <= n.max) return(all.date)
       
-      weeks <- as.Date(intersect(all.dates, breaks.weeks), origin=epoch)
+      intersection <- function(breaks) as.Date(intersect(all.dates, breaks), origin=epoch)
+      
+      weeks <- intersection(breaks.weeks)
       
       if (length(weeks) <= n.max) return (weeks)
       
-      months <- as.Date(intersect(all.dates, breaks.months), origin=epoch)
+      months <- intersection(breaks.months)
       
       if (length(months) <= n.max) return(months)
       
-      quarters <- as.Date(intersect(all.dates, breaks.quarters), origin=epoch)
+      quarters <- intersection(breaks.quarters)
       
       if (length(quarters) <= n.max) return(quarters)
       
-      years <- as.Date(intersect(all.dates, breaks.years), origin=epoch)
+      years <- intersection(breaks.years)
       
-      years
+      if (length(years) <= n.max) return(years)
+      
+      years.5 <- intersection(breaks.years.5)
+    
+      if (length(years.5) <= n.max) return(years.5)
+      
+      decades <- intersection(breaks.decades)
+      
+      decades
     }  
   }  
 }
