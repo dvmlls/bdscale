@@ -3,7 +3,9 @@
 \alias{scale_x_bd}
 \title{Weekend and holiday ignoring position scale for a ggplot.}
 \usage{
-scale_x_bd(..., business.dates, max.major.breaks = 5, max.minor.breaks = 15)
+scale_x_bd(..., business.dates, max.major.breaks = 5,
+  max.minor.breaks = max.major.breaks * 5,
+  breaks = bd_breaks(business.dates))
 }
 \arguments{
 \item{...}{other arguments passed to \code{\link[ggplot]{continuous_scale}}}
@@ -12,7 +14,9 @@ scale_x_bd(..., business.dates, max.major.breaks = 5, max.minor.breaks = 15)
 
 \item{max.major.breaks}{maximum major breaks \code{\link{bd_breaks}} will return, default=5}
 
-\item{max.minor.breaks}{maximum minor breaks \code{\link{bd_breaks}} will return, default=15}
+\item{max.minor.breaks}{maximum minor breaks \code{\link{bd_breaks}} will return, default=major*5}
+
+\item{breaks}{a function \code{max => [date range] => breaks}}
 }
 \description{
 Weekend and holiday ignoring position scale for a ggplot.
@@ -27,18 +31,20 @@ nyse <- get_nyse()
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 
-df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
+plot <- df \%>\% filter(as.Date('2014-08-01') <= date & date <= as.Date('2014-10-08')) \%>\% 
   ggplot(aes(x=date, y=price)) + geom_step() + 
-  theme(axis.title.x=element_blank(), axis.title.y=element_blank()) +
-  ggtitle('calendar dates')
+  theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+
+plot + ggtitle('calendar dates')
 
 # ggsave(file='man/figures/calendar.PNG', width=6, height=2)
 
-df \%>\% filter(as.Date('2014-08-01') < date & date < as.Date('2014-10-08')) \%>\% 
-  ggplot(aes(x=date, y=price)) + geom_step() + scale_x_bd(business.dates=nyse) +
-  theme(axis.title.x=element_blank(), axis.title.y=element_blank()) +
-  ggtitle('business dates')
+plot + scale_x_bd(business.dates=nyse, labels=date_format("\%b '\%y")) + ggtitle('business dates, month breaks')
 
-# ggsave(file='man/figures/business.PNG', width=6, height=2)
+# ggsave(file='man/figures/business.month.PNG', width=6, height=2)
+
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10) + ggtitle('business dates, week breaks')
+
+# ggsave(file='man/figures/business.week.PNG', width=6, height=2)
 }
 
