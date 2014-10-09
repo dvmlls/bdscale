@@ -1,11 +1,11 @@
 bdscale
 ========
 
-Remove weekends and holidays from `ggplot2` axes.
+Remove Weekends and Holidays From `ggplot2` Axes
 
-### Get some dates
+### Find valid dates
 
-Need to know which are valid trading dates. Can ask Yahoo Finance for past NYSE dates:
+Ask Yahoo Finance for S&P prices, use those as past NYSE trading dates:
 
 ```
 nyse <- bdscale::get_nyse()

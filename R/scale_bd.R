@@ -15,50 +15,90 @@ bd_trans <- function(business.dates, breaks=bd_breaks(business.dates)) {
   trans_new('date', transform=transform, inverse=inverse, breaks=breaks, domain=range(business.dates))
 }
 
-scale_bd <- function(aesthetics, expand=waiver(), breaks=bd_breaks(business.dates), minor_breaks=waiver(), business.dates, ...) {
-  
-  if (is.character(breaks)) {
-    breaks_str <- breaks
-    breaks <- date_breaks(breaks_str)
-  }
-  
-  if (is.character(minor_breaks)) {
-    mbreaks_str <- minor_breaks
-    minor_breaks <- date_breaks(mbreaks_str)
-  }
-  
-  continuous_scale(aesthetics, 'date', identity, breaks=breaks, minor_breaks=minor_breaks, guide="none", expand=expand, trans=bd_trans(business.dates, breaks), ...)
+scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(), business.dates, ...) {  
+  continuous_scale(aesthetics, 'date', identity, breaks=breaks, minor_breaks=minor_breaks, guide="none", 
+                   expand=expand, trans=bd_trans(business.dates, breaks), ...)
 }
 
-#' Weekend and holiday ignoring position scale for a ggplot
+#' Weekend and holiday ignoring position scale for a ggplot.
 #' 
-#' @param business.dates a vector of Date objects sorted ascending
-#' @param expand see \code{\link{scale_x_date}}
-#' @param breaks see \code{\link{scale_x_date}}
-#' @param minor_breaks see \code{\link{scale_x_date}}
-#' @param ... see \code{\link{scale_x_date}}
+#' @param business.dates a vector of Date objects, sorted ascending
+#' @param max.major.breaks maximum major breaks \code{\link{bd_breaks}} will return, default=5
+#' @param max.minor.breaks maximum minor breaks \code{\link{bd_breaks}} will return, default=major*5
+#' @param breaks a function \code{max => [date range] => breaks}
+#' @param ... other arguments passed to \code{\link[ggplot]{continuous_scale}}
 #' 
 #' @export
 #' @import ggplot2 scales
-#' @example exec/example.R
+#' @example exec/example_scale_bd.R
 #' 
-scale_x_bd <- function(..., expand=waiver(), breaks=bd_breaks(business.dates), minor_breaks=waiver(), business.dates) {
-  scale_bd(c("x", "xmin", "xmax", "xend"), expand=expand, breaks=breaks, minor_breaks=minor_breaks, business.dates=business.dates, ...)
+scale_x_bd <- function(..., business.dates, max.major.breaks=5, max.minor.breaks=max.major.breaks*5, breaks=bd_breaks(business.dates)) {
+  
+  scale_bd(c("x", "xmin", "xmax", "xend"), expand=waiver(), 
+           breaks=breaks(max.major.breaks), minor_breaks=breaks(max.minor.breaks), 
+           business.dates=business.dates, ...)
 }
 
-#bd_closest <- function(dates, business.dates) {
-#  m.dates <- do.call(rbind, rep(list(dates), length(business.dates)))
-#  m.bds <- do.call(cbind, rep(list(business.dates), length(dates)))
-#  closest <- abs(m.dates - m.bds) %>% apply(2, function(v) v == min(v))
-#  (closest * m.bds) %>% apply(2, sum) %>% as.Date(origin=as.Date('1970-01-01'))
-#}
+epoch <- as.Date('1970-01-01')
+quarter <- function(date) ceiling(as.integer(format(date, '%m')) / 3)
+quarter_format <- function(date) sprintf("Q%s '%s", quarter(date), format(date, '%y'))
+last_monday <- function(date) as.Date(as.integer(date) - as.integer(format(date, '%u')) + 1, origin=epoch)
 
-bd_breaks <- function(business.dates, n = 5, ...) {
+firstInGroup <- function(dates, f.group) {
+  group <- f.group(dates)
+  grouped <- split(dates, factor(group))
+  result <- sapply(grouped, function(l) l[[1]])
+  as.Date(result, origin=epoch)
+}
+
+#' Date breaks corresponding to the first trading day of standard periods
+#' 
+#' The periods are:
+#' \itemize{
+#'  \item years
+#'  \item quarters
+#'  \item months
+#'  \item weeks
+#'  \item days
+#' }
+#' 
+#' @return returns a function function: \code{max => [date range] => breaks} that generates the breaks 
+#'         for the interval with the largest number of breaks less than \code{n.max}
+#' @param business.dates a vector of Date objects, sorted ascending
+#' @param n.max the maximum number of breaks to return
+#' 
+#' @export
+#' 
+bd_breaks <- function(business.dates, n.max=5) {
   
-  function(dates) {
-    ts <- bd2t(dates, business.dates)
-    breaks <- t2bd(pretty(sort(ts), n, ...), business.dates)
-    names(breaks) <- attr(breaks, "labels")
-    breaks
-  }
+  breaks.weeks <-firstInGroup(business.dates, last_monday)
+  breaks.months <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
+  breaks.quarters <- firstInGroup(business.dates, quarter_format)
+  breaks.years <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
+  
+  function(n.max=5) {
+    function(range.date) {      
+      range.t <- bd2t(range.date, business.dates)
+      all.ts <- range.t[1]:range.t[2]
+      all.dates <- t2bd(all.ts, business.dates)
+      
+      if(length(all.date) <= n.max) return(all.date)
+      
+      weeks <- as.Date(intersect(all.dates, breaks.weeks), origin=epoch)
+      
+      if (length(weeks) <= n.max) return (weeks)
+      
+      months <- as.Date(intersect(all.dates, breaks.months), origin=epoch)
+      
+      if (length(months) <= n.max) return(months)
+      
+      quarters <- as.Date(intersect(all.dates, breaks.quarters), origin=epoch)
+      
+      if (length(quarters) <= n.max) return(quarters)
+      
+      years <- as.Date(intersect(all.dates, breaks.years), origin=epoch)
+      
+      years
+    }  
+  }  
 }
