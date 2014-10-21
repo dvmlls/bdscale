@@ -46,7 +46,7 @@ Removes weekends and holidays from the graph:
 
 <img src='man/figures/business.month.PNG'>
 
-The major breaks are pretty far apart. It put them on the first trading day of each month. 
+The major breaks are pretty far apart, on the first trading day of each month. 
 
 It's a wide chart, tell it to use more breaks:
 
