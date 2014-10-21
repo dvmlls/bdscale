@@ -84,7 +84,7 @@ bd_breaks <- function(business.dates, n.max=5) {
       all.ts <- range.t[1]:range.t[2]
       all.dates <- t2bd(all.ts, business.dates)
       
-      if(length(all.date) <= n.max) return(all.date)
+      if(length(all.dates) <= n.max) return(all.dates)
       
       intersection <- function(breaks) as.Date(intersect(all.dates, breaks), origin=epoch)
       
