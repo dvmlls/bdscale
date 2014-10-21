@@ -3,6 +3,8 @@ bdscale
 
 Remove Weekends and Holidays From `ggplot2` Axes
 
+[![Build Status](https://travis-ci.org/dvmlls/bdscale.svg?branch=master)](https://travis-ci.org/dvmlls/bdscale)
+
 ### Find valid dates
 
 Ask Yahoo Finance for S&P prices, use those as past NYSE trading dates. Then create some fake prices, put them into a `data.frame` alongside the dates:
