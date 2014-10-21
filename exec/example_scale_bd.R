@@ -1,3 +1,4 @@
+## Not run:
 require(dplyr, quietly=TRUE, warn.conflicts=FALSE)
 require(ggplot2, quietly=TRUE)
 require(scales)
@@ -23,3 +24,4 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('
   ggtitle('business dates, week breaks')
 
 # ggsave(file='man/figures/business.week.PNG', width=6, height=2)
+## End(Not run)
