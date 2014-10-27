@@ -61,9 +61,9 @@ Given that max, it determines it can put major breaks on the first trading day o
 
 ### Translating into business-day space
 
-Say I wanted to put vertical lines on the option expiration dates. 
+Say I wanted to put vertical lines on option expiration dates. 
 
-Calling \code{as.numeric} on my dates translates them into the calendar scale, which is the number of calendar days after the unix epoch (\code{scales:::from_date}):
+Calling `as.numeric` on my dates translates them into the the number of calendar days after the unix epoch, which is what `scale_x_date` uses (see `scales:::from_date`):
 
 ```
 options <- c('2014-08-15', '2014-09-19') %>% as.Date
@@ -75,9 +75,9 @@ plot +
 
 <img src='man/figures/calendar.options.PNG'>
 
-This doesn't work for business-day space because the x-axis now represents the number of business days after the first date in your \code{business.dates} vector. 
+This doesn't work for business-day space because the x-axis now represents the number of business days after the first date in your `business.dates` vector. 
 
-Instead, use the \code{bdscale::bd2t} function to translate into business-day space:
+Instead, use the `bdscale::bd2t` function to translate into business-day space:
 
 ```
 plot + 
