@@ -51,6 +51,21 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('
 
 # ggsave(file='man/figures/business.week.PNG', width=6, height=2)
 
+options <- c('2014-08-15', '2014-09-19') \%>\% as.Date
+
+plot + 
+  geom_vline(xintercept=as.numeric(options), size=2, alpha=0.25) + 
+  ggtitle('calendar dates, option expiry')
+
+# ggsave(file='man/figures/calendar.options.PNG', width=6, height=2)
+
+plot + 
+  geom_vline(xintercept=bd2t(options, business.dates=nyse), size=2, alpha=0.25) + 
+  scale_x_bd(business.dates=nyse) +
+  ggtitle('business dates, option expiry')
+
+# ggsave(file='man/figures/calendar.options.PNG', width=6, height=2)
+
 ## End(Not run)
 }
 
