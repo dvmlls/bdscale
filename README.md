@@ -1,9 +1,7 @@
 bdscale
 ========
 
-Remove Weekends and Holidays From `ggplot2` Axes
-
-[![Build Status](https://travis-ci.org/dvmlls/bdscale.svg?branch=master)](https://travis-ci.org/dvmlls/bdscale)
+Remove Weekends and Holidays From `ggplot2` Axes [![Build Status](https://travis-ci.org/dvmlls/bdscale.svg?branch=master)](https://travis-ci.org/dvmlls/bdscale)
 
 ### Find valid dates
 
