@@ -64,7 +64,7 @@ plot +
   scale_x_bd(business.dates=nyse) +
   ggtitle('business dates, option expiry')
 
-# ggsave(file='man/figures/calendar.options.PNG', width=6, height=2)
+# ggsave(file='man/figures/business.options.PNG', width=6, height=2)
 
 ## End(Not run)
 }

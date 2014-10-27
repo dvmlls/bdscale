@@ -4,7 +4,7 @@
 #'  integer \code{t} which is the number of business days after the first date in
 #'  your \code{business.dates} vector
 #' @param business.dates a vector of \code{Date} objects, sorted ascending
-#' @return An integer vector where each element is the number of business days \code{t} 
+#' @return returns an integer vector where each element is the number of business days \code{t} 
 #'  after the first date in your \code{business.dates} vector
 #'  
 #' @export

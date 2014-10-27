@@ -1,7 +1,7 @@
 #' Get past trading days using close prices of supplied ticker
 #' 
 #' @param ticker The ticker you want to use, defaults to S&P 500: \code{^GSPC}
-#' @return a vector of Date 
+#' @return returns a vector of \code{Date}s
 #' @importFrom utils URLencode
 #' @export
 #' 
