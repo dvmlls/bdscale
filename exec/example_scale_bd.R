@@ -1,9 +1,10 @@
 ## Not run:
+
 require(dplyr, quietly=TRUE, warn.conflicts=FALSE)
 require(ggplot2, quietly=TRUE)
 require(scales)
 
-nyse <- get_nyse()
+nyse <- yahoo()
 
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
@@ -16,7 +17,8 @@ plot + ggtitle('calendar dates')
 
 # ggsave(file='man/figures/calendar.PNG', width=6, height=2)
 
-plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) + ggtitle('business dates, month breaks')
+plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) + 
+  ggtitle('business dates, month breaks')
 
 # ggsave(file='man/figures/business.month.PNG', width=6, height=2)
 
@@ -24,4 +26,5 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('
   ggtitle('business dates, week breaks')
 
 # ggsave(file='man/figures/business.week.PNG', width=6, height=2)
+
 ## End(Not run)

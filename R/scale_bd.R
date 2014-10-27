@@ -1,3 +1,14 @@
+#' Transform \code{Date}s into your business-date scale. 
+#' 
+#' @param dates a \code{Date} vector for which you want to transform each date into an
+#'  integer \code{t} which is the number of business days after the first date in
+#'  your \code{business.dates} vector
+#' @param business.dates a vector of \code{Date} objects, sorted ascending
+#' @return An integer vector where each element is the number of business days \code{t} 
+#'  after the first date in your \code{business.dates} vector
+#'  
+#' @export
+#' 
 bd2t <- function(dates, business.dates) {
   result=match(dates, business.dates) - 1
   structure(as.numeric(result), names=names(dates))
@@ -22,11 +33,11 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 
 #' Weekend and holiday ignoring position scale for a ggplot.
 #' 
-#' @param business.dates a vector of Date objects, sorted ascending
+#' @param business.dates a vector of \code{Date} objects, sorted ascending
 #' @param max.major.breaks maximum major breaks \code{\link{bd_breaks}} will return, default=5
 #' @param max.minor.breaks maximum minor breaks \code{\link{bd_breaks}} will return, default=major*5
 #' @param breaks a function \code{max => [date range] => breaks}
-#' @param ... other arguments passed to \code{\link[ggplot]{continuous_scale}}
+#' @param ... other arguments passed to \code{\link[ggplot2]{continuous_scale}}
 #' 
 #' @export
 #' @import ggplot2 scales
@@ -64,7 +75,7 @@ firstInGroup <- function(dates, f.group) {
 #' 
 #' @return returns a function function: \code{max => [date range] => breaks} that generates the breaks 
 #'         for the interval with the largest number of breaks less than \code{n.max}
-#' @param business.dates a vector of Date objects, sorted ascending
+#' @param business.dates a vector of \code{Date} objects, sorted ascending
 #' @param n.max the maximum number of breaks to return
 #' 
 #' @export

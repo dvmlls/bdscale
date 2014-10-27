@@ -6,7 +6,7 @@
 bd_breaks(business.dates, n.max = 5)
 }
 \arguments{
-\item{business.dates}{a vector of Date objects, sorted ascending}
+\item{business.dates}{a vector of \code{Date} objects, sorted ascending}
 
 \item{n.max}{the maximum number of breaks to return}
 }

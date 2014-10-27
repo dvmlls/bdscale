@@ -8,9 +8,9 @@ scale_x_bd(..., business.dates, max.major.breaks = 5,
   breaks = bd_breaks(business.dates))
 }
 \arguments{
-\item{...}{other arguments passed to \code{\link[ggplot]{continuous_scale}}}
+\item{...}{other arguments passed to \code{\link[ggplot2]{continuous_scale}}}
 
-\item{business.dates}{a vector of Date objects, sorted ascending}
+\item{business.dates}{a vector of \code{Date} objects, sorted ascending}
 
 \item{max.major.breaks}{maximum major breaks \code{\link{bd_breaks}} will return, default=5}
 
@@ -22,11 +22,13 @@ scale_x_bd(..., business.dates, max.major.breaks = 5,
 Weekend and holiday ignoring position scale for a ggplot.
 }
 \examples{
+## Not run:
+
 require(dplyr, quietly=TRUE, warn.conflicts=FALSE)
 require(ggplot2, quietly=TRUE)
 require(scales)
 
-nyse <- get_nyse()
+nyse <- yahoo()
 
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
@@ -39,7 +41,8 @@ plot + ggtitle('calendar dates')
 
 # ggsave(file='man/figures/calendar.PNG', width=6, height=2)
 
-plot + scale_x_bd(business.dates=nyse, labels=date_format("\%b '\%y")) + ggtitle('business dates, month breaks')
+plot + scale_x_bd(business.dates=nyse, labels=date_format("\%b '\%y")) + 
+  ggtitle('business dates, month breaks')
 
 # ggsave(file='man/figures/business.month.PNG', width=6, height=2)
 
@@ -47,5 +50,7 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('
   ggtitle('business dates, week breaks')
 
 # ggsave(file='man/figures/business.week.PNG', width=6, height=2)
+
+## End(Not run)
 }
 
