@@ -56,10 +56,9 @@ quarter_format <- function(date) sprintf("Q%s '%s", quarter(date), format(date, 
 last_monday <- function(date) as.Date(as.integer(date) - as.integer(format(date, '%u')) + 1, origin=epoch)
 
 firstInGroup <- function(dates, f.group) {
-  group <- f.group(dates)
-  grouped <- split(dates, factor(group))
-  result <- sapply(grouped, function(l) l[[1]])
-  as.Date(result, origin=epoch)
+  groups <- f.group(dates)
+  grouped <- split(dates, factor(groups))
+  sapply(grouped, function(l) l[[1]])
 }
 
 #' Date breaks corresponding to the first trading day of standard periods
@@ -82,7 +81,7 @@ firstInGroup <- function(dates, f.group) {
 #' 
 bd_breaks <- function(business.dates, n.max=5) {
   
-  breaks.weeks <-firstInGroup(business.dates, last_monday)
+  breaks.weeks <- firstInGroup(business.dates, last_monday)
   breaks.months <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
   breaks.quarters <- firstInGroup(business.dates, quarter_format)
   breaks.years <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
