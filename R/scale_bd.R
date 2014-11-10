@@ -50,7 +50,7 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 #' 
 #' \dontrun{
 #'  ggplot(ts, aes(x=date, y=price)) + 
-#'    scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10)
+#'    scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10, labels=date_format("%b '%y"))
 #' }
 #' 
 scale_x_bd <- function(..., business.dates, max.major.breaks=5, max.minor.breaks=max.major.breaks*5, breaks=bd_breaks(business.dates)) {

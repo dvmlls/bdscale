@@ -24,7 +24,7 @@ Weekend and holiday ignoring position scale for a ggplot.
 \examples{
 \dontrun{
  ggplot(ts, aes(x=date, y=price)) +
-   scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10)
+   scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10, labels=date_format("\%b '\%y"))
 }
 }
 
