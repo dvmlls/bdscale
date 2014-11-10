@@ -22,7 +22,7 @@ scale_x_bd(..., business.dates, max.major.breaks = 5,
 Weekend and holiday ignoring position scale for a ggplot.
 }
 \examples{
-dontrun{
+\dontrun{
  ggplot(ts, aes(x=date, y=price)) +
    scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10)
 }

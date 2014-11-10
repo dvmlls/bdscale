@@ -48,7 +48,7 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 #' @import ggplot2 scales
 #' @examples
 #' 
-#' dontrun{
+#' \dontrun{
 #'  ggplot(ts, aes(x=date, y=price)) + 
 #'    scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10)
 #' }
