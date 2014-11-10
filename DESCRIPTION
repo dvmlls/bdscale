@@ -1,6 +1,6 @@
 Package: bdscale
-Version: 1.1
-Date: 2014-10-27
+Version: 1.2
+Date: 2014-11-10
 Title: Remove Weekends and Holidays From ggplot2 Axes
 Author: Dave Mills <dave.a.mills@gmail.com>
 Maintainer: Dave Mills <dave.a.mills@gmail.com>
