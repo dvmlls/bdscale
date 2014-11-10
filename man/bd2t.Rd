@@ -13,7 +13,7 @@ your \code{business.dates} vector}
 \item{business.dates}{a vector of \code{Date} objects, sorted ascending}
 }
 \value{
-An integer vector where each element is the number of business days \code{t}
+returns an integer vector where each element is the number of business days \code{t}
  after the first date in your \code{business.dates} vector
 }
 \description{

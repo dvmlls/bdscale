@@ -9,7 +9,7 @@ yahoo(ticker = "^GSPC")
 \item{ticker}{The ticker you want to use, defaults to S&P 500: \code{^GSPC}}
 }
 \value{
-a vector of Date
+returns a vector of \code{Date}s
 }
 \description{
 Get past trading days using close prices of supplied ticker

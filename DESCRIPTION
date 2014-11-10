@@ -9,9 +9,6 @@ Depends:
 Imports:
     ggplot2,
     scales
-Suggests:
-    magrittr,
-    dplyr
 URL: http://github.com/dvmlls/bdscale
 Description: Provides a continuous date scale, omitting weekends and holidays.
 License: GPL-2
