@@ -19,4 +19,9 @@ returns an integer vector where each element is the number of business days \cod
 \description{
 Transform \code{Date}s into your business-date scale.
 }
+\examples{
+monday <- as.Date('2014-10-13')
+weekdays <- monday + 0:4
+bd2t(monday + c(1, 3), weekdays)
+}
 

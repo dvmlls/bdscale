@@ -12,3 +12,6 @@ Imports:
 URL: http://github.com/dvmlls/bdscale
 Description: Provides a continuous date scale, omitting weekends and holidays.
 License: GPL-2
+Suggests:
+    knitr
+VignetteBuilder: knitr

@@ -9,6 +9,11 @@
 #'  
 #' @export
 #' 
+#' @examples
+#' monday <- as.Date('2014-10-13')
+#' weekdays <- monday + 0:4
+#' bd2t(monday + c(1, 3), weekdays)
+#' 
 bd2t <- function(dates, business.dates) {
   result=match(dates, business.dates) - 1
   structure(as.numeric(result), names=names(dates))
@@ -41,7 +46,12 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 #' 
 #' @export
 #' @import ggplot2 scales
-#' @example exec/example_scale_bd.R
+#' @examples
+#' 
+#' dontrun{
+#'  ggplot(ts, aes(x=date, y=price)) + 
+#'    scale_x_bd(business.dates=yahoo('SPY'), max.major.breaks=10)
+#' }
 #' 
 scale_x_bd <- function(..., business.dates, max.major.breaks=5, max.minor.breaks=max.major.breaks*5, breaks=bd_breaks(business.dates)) {
   

@@ -1,0 +1,106 @@
+---
+title: "Business-Day Scaling"
+author: "Dave Mills"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Business-Day Scaling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r message=F, warning=F, results='hide', echo=F}
+library(ggplot2)
+library(scales)
+library(bdscale)
+```
+
+When graphing financial data, I prefer a continuous axis scale where weekends and holidays don't exist. Did the price remain unchanged for three days, or am I looking at labor-day weekend? 
+
+## Create sample data
+
+Ask Yahoo Finance for S&P prices, use those as past NYSE trading dates:
+
+```{r}
+nyse <- yahoo('SPY')
+```
+
+Then create some fake prices, put them into a `data.frame` alongside the dates:
+
+```{r}
+set.seed(12345)
+df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
+df <- subset(df, as.Date('2014-08-01') <= date & date <= as.Date('2014-10-08'))
+```
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(tail(df, 5))
+```
+
+## Plot on a standard calendar-day axis:
+
+Create a plot:
+
+```{r}
+plot <- ggplot(df, aes(x=date, y=price)) + geom_step() + 
+  theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+```
+
+Note the large gap at the beginning of September, because Labor Day was on the 1st:
+
+```{r, fig.width=7}
+plot + ggtitle('calendar dates')
+```
+
+## Plot on a business-day axis:
+
+Plotting against `scale_x_bd` instead removes weekends and holidays from the graph:
+
+```{r, fig.width=7}
+plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) + 
+  ggtitle('business dates, month breaks')
+```
+
+## Increasing density of breaks
+
+The major breaks are pretty far apart, on the first trading day of each month.
+
+The package determined this gives you the largest number of breaks weakly less than the default maximum, which is `5`. 
+
+If you tell it to use more, it can put breaks on the first day of the week:
+
+```{r, fig.width=7}
+plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('%d %b')) + 
+  ggtitle('business dates, week breaks')
+```
+
+## Translating into business-day space
+
+Say I wanted to put vertical lines on option expiration dates.
+
+Calling `as.numeric(...)` on my dates translates them into the the number of calendar days after unix epoch, which is what `scale_x_date(...)` uses (see `scales:::from_date`):
+
+```{r, fig.width=7}
+options <- as.Date(c('2014-08-15', '2014-09-19'))
+
+plot + 
+  geom_vline(xintercept=as.numeric(options), size=2, alpha=0.25) + 
+  ggtitle('calendar dates, option expiry')
+```
+
+This doesn't work for business-day space because the x-axis now represents the number of business days after the first date in your `business.dates` vector.
+
+Instead, use the `bdscale::bd2t(...)` function to translate into business-day space:
+
+```{r, fig.width=7}
+plot + 
+  geom_vline(xintercept=bd2t(options, business.dates=nyse), size=2, alpha=0.25) + 
+  scale_x_bd(business.dates=nyse) +
+  ggtitle('business dates, option expiry')
+```
+
+|             | `scale_x_date`                           | `scale_x_bd`                               
+|-------------|------------------------------------------|--------------------------------------------|
+| origin      | unix epoch: `1970-01-01`                 | first date in your `business.dates` vector |
+| axis values | number of **calendar days** after origin | number of **business days** after origin   |
+| conversion  | `as.numeric(...)`                        | `bd2t(..., business.dates)`                |
