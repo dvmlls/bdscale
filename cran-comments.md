@@ -1,8 +1,10 @@
-### Version 1.2: Fix examples for R-oldrelease
 
-*2014-11-10*
+### Version 1.2: Fix for R-oldrelease
 
-* Translate the complicated example into a vignette because Uwe says the former doesn't work for `R-oldrelease` on Windows. 
+*2014-11-13*
+
+* Require `R >= 3.1.0` for the `%u` `strftime` specification. 
+* Translate the one long example into a vignette. 
 * Add shorter examples that `dontrun`. 
 * Remove dependencies on `dplyr` and `magrittr` in examples, remove from `Suggests`. 
 * Remove unnecessary date conversion when calculating breaks. 
