@@ -5,7 +5,7 @@ Title: Remove Weekends and Holidays From ggplot2 Axes
 Author: Dave Mills <dave.a.mills@gmail.com>
 Maintainer: Dave Mills <dave.a.mills@gmail.com>
 Depends:
-    R (>= 3.0)
+    R (>= 3.1.0)
 Imports:
     ggplot2,
     scales
