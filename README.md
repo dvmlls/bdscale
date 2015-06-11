@@ -3,6 +3,7 @@ bdscale
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/bdscale)](http://cran.r-project.org/web/packages/bdscale)
 [![Build Status](https://travis-ci.org/dvmlls/bdscale.svg?branch=master)](https://travis-ci.org/dvmlls/bdscale)
+[![Coverage Status](https://img.shields.io/codecov/c/github/dvmlls/bdscale/master.svg)](https://codecov.io/github/dvmlls/bdscale?branch=master)
 
 Remove Weekends and Holidays From `ggplot2` Axes 
 
