@@ -34,7 +34,7 @@ plot + ggtitle('calendar dates')
 
 Note the large gap at the beginning of September, because Labor Day was on the 1st:
 
-<img src='man/figures/calendar.PNG'>
+![calendar dates](https://raw.githubusercontent.com/dvmlls/bdscale/master/man/figures/calendar.PNG)
 
 ### Plot on a business-day axis:
 
@@ -47,7 +47,7 @@ plot + scale_x_bd(business.dates=nyse, labels=date_format("%b '%y")) +
 
 Removes weekends and holidays from the graph:
 
-<img src='man/figures/business.month.PNG'>
+![business dates, month breaks](https://raw.githubusercontent.com/dvmlls/bdscale/master/man/figures/business.month.PNG)
 
 The major breaks are pretty far apart, on the first trading day of each month. 
 
@@ -60,7 +60,7 @@ plot + scale_x_bd(business.dates=nyse, max.major.breaks=10, labels=date_format('
 
 Given that max, it determines it can put major breaks on the first trading day of the week, and minor breaks every day:
 
-<img src='man/figures/business.week.PNG'>
+![business dates, week breaks](https://raw.githubusercontent.com/dvmlls/bdscale/master/man/figures/business.week.PNG)
 
 ### Translating into business-day space
 
@@ -76,7 +76,7 @@ plot +
   ggtitle('calendar dates, option expiry')
 ````
 
-<img src='man/figures/calendar.options.PNG'>
+![calendar dates with options](https://raw.githubusercontent.com/dvmlls/bdscale/master/man/figures/calendar.options.PNG)
 
 This doesn't work for business-day space because the x-axis now represents the number of business days after the first date in your `business.dates` vector. 
 
@@ -89,4 +89,4 @@ plot +
   ggtitle('business dates, option expiry')
 ```
 
-<img src='man/figures/business.options.PNG'>
+![business dates with options](https://raw.githubusercontent.com/dvmlls/bdscale/master/man/figures/business.options.PNG)
