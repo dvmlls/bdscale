@@ -61,14 +61,20 @@ scale_x_bd <- function(..., business.dates, max.major.breaks=5, max.minor.breaks
 }
 
 epoch <- as.Date('1970-01-01')
-quarter <- function(date) ceiling(as.integer(format(date, '%m')) / 3)
+
+last_monday    <- function(date) as.Date(as.integer(date) - as.integer(format(date, '%u')) + 1, origin=epoch)
+month_format   <- function(date) format(date, "%b '%y")
+quarter        <- function(date) ceiling(as.integer(format(date, '%m')) / 3)
 quarter_format <- function(date) sprintf("Q%s '%s", quarter(date), format(date, '%y'))
-last_monday <- function(date) as.Date(as.integer(date) - as.integer(format(date, '%u')) + 1, origin=epoch)
+year_format    <- function(date) format(date, '%Y')
 
 firstInGroup <- function(dates, f.group) {
-  groups <- f.group(dates)
-  grouped <- split(dates, factor(groups))
-  sapply(grouped, function(l) l[[1]])
+  df <- data.frame(date=dates, group=f.group(dates))
+  df$change <- c(TRUE, head(df$group, -1) != tail(df$group, -1))
+  changes <- subset(df, change)
+  result <- changes$date
+  names(result) <- changes$group
+  result
 }
 
 #' Date breaks corresponding to the first trading day of standard periods
@@ -92,9 +98,9 @@ firstInGroup <- function(dates, f.group) {
 bd_breaks <- function(business.dates, n.max=5) {
   
   breaks.weeks    <- firstInGroup(business.dates, last_monday)
-  breaks.months   <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
+  breaks.months   <- firstInGroup(business.dates, month_format)
   breaks.quarters <- firstInGroup(business.dates, quarter_format)
-  breaks.years    <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
+  breaks.years    <- firstInGroup(business.dates, year_format)
   breaks.years.5  <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/5))
   breaks.decades  <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/10))
   
