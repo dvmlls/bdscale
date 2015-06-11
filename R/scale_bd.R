@@ -91,12 +91,12 @@ firstInGroup <- function(dates, f.group) {
 #' 
 bd_breaks <- function(business.dates, n.max=5) {
   
-  breaks.weeks <- firstInGroup(business.dates, last_monday)
-  breaks.months <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
+  breaks.weeks    <- firstInGroup(business.dates, last_monday)
+  breaks.months   <- firstInGroup(business.dates, function(ds) format(ds, "%b '%y"))
   breaks.quarters <- firstInGroup(business.dates, quarter_format)
-  breaks.years <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
-  breaks.years.5 <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/5))
-  breaks.decades <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/10))
+  breaks.years    <- firstInGroup(business.dates, function(ds) format(ds, '%Y'))
+  breaks.years.5  <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/5))
+  breaks.decades  <- firstInGroup(business.dates, function(ds) floor(as.integer(format(ds, '%Y'))/10))
   
   function(n.max=5) {
     function(range.date) {      
