@@ -31,12 +31,7 @@ bd_trans <- function(business.dates, breaks=bd_breaks(business.dates)) {
   trans_new('date', transform=transform, inverse=inverse, breaks=breaks, domain=range(business.dates))
 }
 
-scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(), business.dates, ...) {  
-  continuous_scale(aesthetics, 'date', identity, breaks=breaks, minor_breaks=minor_breaks, guide="none", 
-                   expand=expand, trans=bd_trans(business.dates, breaks), ...)
-}
-
-#' Weekend and holiday ignoring position scale for a ggplot.
+#' Weekend- and holiday-ignoring position scale for a ggplot.
 #' 
 #' @param business.dates a vector of \code{Date} objects, sorted ascending
 #' @param max.major.breaks maximum major breaks \code{\link{bd_breaks}} will return, default=5
@@ -45,7 +40,8 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 #' @param ... other arguments passed to \code{\link[ggplot2]{continuous_scale}}
 #' 
 #' @export
-#' @import ggplot2 scales
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom scales trans_new
 #' @examples
 #' 
 #' \dontrun{
@@ -55,9 +51,8 @@ scale_bd <- function(aesthetics, expand=waiver(), breaks, minor_breaks=waiver(),
 #' 
 scale_x_bd <- function(..., business.dates, max.major.breaks=5, max.minor.breaks=max.major.breaks*5, breaks=bd_breaks(business.dates)) {
   
-  scale_bd(c("x", "xmin", "xmax", "xend"), expand=waiver(), 
-           breaks=breaks(max.major.breaks), minor_breaks=breaks(max.minor.breaks), 
-           business.dates=business.dates, ...)
+  scale_x_continuous(name='date', breaks=breaks(max.major.breaks), minor_breaks=breaks(max.minor.breaks), trans=bd_trans(business.dates, breaks), ...)
+  
 }
 
 epoch <- as.Date('1970-01-01')
@@ -71,7 +66,8 @@ year_format    <- function(date) format(date, '%Y')
 firstInGroup <- function(dates, f.group) {
   df <- data.frame(date=dates, group=f.group(dates))
   df$change <- c(TRUE, head(df$group, -1) != tail(df$group, -1))
-  changes <- subset(df, change)
+  change = NULL; rm(change) # http://stackoverflow.com/a/8096882
+  changes <- subset(df, change) 
   result <- changes$date
   names(result) <- changes$group
   result

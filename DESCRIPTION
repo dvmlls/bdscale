@@ -1,19 +1,22 @@
 Package: bdscale
-Version: 1.3
-Date: 2015-06-10
+Version: 2.0.0
+Date: 2016-03-16
 Title: Remove Weekends and Holidays From ggplot2 Axes
 Authors@R: c(
     person("Dave", "Mills", , "dave.a.mills@gmail.com", c("aut", "cre"))
     )
-Depends: 
-    R (>= 3.1.0)
-Imports: 
-    ggplot2 (>= 1.0.1),
-    scales (>= 0.2.4)
+Depends:
+    R (>= 3.2.0)
+Imports:
+    ggplot2 (>= 2.1.0),
+    scales (>= 0.4.0)
 URL: http://github.com/dvmlls/bdscale
 Description: Provides a continuous date scale, omitting weekends and holidays.
 License: GPL-2
-Suggests: 
-    knitr (>= 1.10.5),
-    testthat (>= 0.10.0)
+Suggests:
+    knitr (>= 1.12.3),
+    testthat (>= 0.11.0),
+    rmarkdown (>= 0.9.5)
 VignetteBuilder: knitr
+LazyData: true
+RoxygenNote: 5.0.1

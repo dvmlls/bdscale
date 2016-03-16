@@ -19,10 +19,10 @@ When graphing financial data, I prefer a continuous axis scale where weekends an
 
 ## Create sample data
 
-Ask Yahoo Finance for S&P prices, use those as past NYSE trading dates:
+Load past NYSE trading dates, taken from Yahoo's S&P prices:
 
 ```{r}
-nyse <- yahoo('SPY')
+data(nyse)
 ```
 
 Then create some fake prices, put them into a `data.frame` alongside the dates:
