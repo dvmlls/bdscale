@@ -3,6 +3,6 @@
 export(bd2t)
 export(bd_breaks)
 export(scale_x_bd)
-import(ggplot2)
-import(scales)
+importFrom(ggplot2,scale_x_continuous)
+importFrom(scales,trans_new)
 importFrom(utils,URLencode)

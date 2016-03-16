@@ -40,7 +40,8 @@ bd_trans <- function(business.dates, breaks=bd_breaks(business.dates)) {
 #' @param ... other arguments passed to \code{\link[ggplot2]{continuous_scale}}
 #' 
 #' @export
-#' @import ggplot2 scales
+#' @importFrom ggplot2 scale_x_continuous
+#' @importFrom scales trans_new
 #' @examples
 #' 
 #' \dontrun{
