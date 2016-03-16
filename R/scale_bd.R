@@ -89,6 +89,7 @@ firstInGroup <- function(dates, f.group) {
 #' @param business.dates a vector of \code{Date} objects, sorted ascending
 #' @param n.max the maximum number of breaks to return
 #' 
+#' @importFrom utils head tail
 #' @export
 #' 
 bd_breaks <- function(business.dates, n.max=5) {

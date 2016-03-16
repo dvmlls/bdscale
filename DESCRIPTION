@@ -9,7 +9,7 @@ Depends:
     R (>= 3.2.0)
 Imports:
     ggplot2 (>= 2.1.0),
-    scales (>= 0.4.0)
+    scales (>= 0.3.0)
 URL: http://github.com/dvmlls/bdscale
 Description: Provides a continuous date scale, omitting weekends and holidays.
 License: GPL-2
