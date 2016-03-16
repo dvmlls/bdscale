@@ -12,7 +12,7 @@ Remove Weekends and Holidays From `ggplot2` Axes
 Ask Yahoo Finance for S&P prices, use those as past NYSE trading dates. Then create some fake prices, put them into a `data.frame` alongside the dates:
 
 ```
-nyse <- yahoo()
+data(nyse)
 set.seed(12345)
 df <- data.frame(date=nyse, price=cumsum(rnorm(length(nyse))) + 100)
 ```
