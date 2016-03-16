@@ -3,7 +3,6 @@
 #' @param ticker The ticker you want to use, defaults to S&P 500: \code{^GSPC}
 #' @return returns a vector of \code{Date}s
 #' @importFrom utils URLencode
-#' @export
 #' 
 yahoo <- function(ticker='^GSPC') {
   encoded <- URLencode(ticker)

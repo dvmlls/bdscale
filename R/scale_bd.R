@@ -65,7 +65,7 @@ year_format    <- function(date) format(date, '%Y')
 firstInGroup <- function(dates, f.group) {
   df <- data.frame(date=dates, group=f.group(dates))
   df$change <- c(TRUE, head(df$group, -1) != tail(df$group, -1))
-  changes <- subset(df, change)
+  changes <- subset(df, change) # ?? no visible binding for global variable ‘change’
   result <- changes$date
   names(result) <- changes$group
   result

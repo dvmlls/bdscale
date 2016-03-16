@@ -15,7 +15,7 @@ test_that('weekends show up as NA', {
 })
 
 test_that('first and last dates', {
-  limits <- bd2t(as.Date(c('1950-01-03', '2015-06-10')), nyse)
+  limits <- bd2t(as.Date(c('1950-01-03', '2016-03-15')), nyse)
   expect_equal(limits, c(0, length(nyse) - 1))    
 })
 
