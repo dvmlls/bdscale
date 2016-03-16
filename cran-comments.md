@@ -1,3 +1,10 @@
+### Version 2.0: update for ggplot2 2.0
+
+*2015-03-16*
+
+* Require `ggplot2 >= 2.0.0` and modify `bdscale` accordingly. 
+
+---
 
 ### Version 1.2: Fix for R-oldrelease
 
