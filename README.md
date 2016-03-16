@@ -1,7 +1,7 @@
 bdscale
 ========
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/bdscale)](http://cran.r-project.org/web/packages/bdscale)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/bdscale)](https://cran.r-project.org/package=bdscale)
 [![Build Status](https://travis-ci.org/dvmlls/bdscale.svg?branch=master)](https://travis-ci.org/dvmlls/bdscale)
 [![Coverage Status](https://img.shields.io/codecov/c/github/dvmlls/bdscale/master.svg)](https://codecov.io/github/dvmlls/bdscale?branch=master)
 
